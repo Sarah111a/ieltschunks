@@ -25,6 +25,15 @@ nav span { color:#fff; font-size:14px; font-weight:bold; margin-left:8px; }
 .ch-em { background:#fae8ee; color:#a0264a; }
 .ch-co { background:#e6f5ec; color:#2a7a4a; }
 .chunks-section { margin-top:32px; padding-top:16px; border-top:2px solid #ddd; }
+/* 雅思词汇高亮 */
+.voc { background:#fff8c5; color:#7d5a00; border-bottom:2px solid #f0c040; border-radius:2px; padding:1px 2px; cursor:pointer; position:relative; }
+.voc:hover { background:#fef0a0; }
+/* Tooltip */
+.tip-box { position:fixed; background:#1a1a2e; color:#eee; border-radius:10px; padding:14px 16px; width:240px; font-size:13px; z-index:9999; pointer-events:none; box-shadow:0 8px 32px rgba(0,0,0,.3); display:none; }
+.tip-box.show { display:block; }
+.tip-word { font-size:16px; font-weight:bold; color:#f0c040; margin-bottom:6px; }
+.tip-row { margin-bottom:4px; line-height:1.5; }
+.tip-label { color:#aaa; font-size:11px; }
 .chunks-title { font-size:18px; font-weight:bold; margin-bottom:12px; }
 .chunk-item { background:#fff; border-radius:8px; padding:12px; margin-bottom:10px; border-left:4px solid #ccc; }
 .chunk-item.op { border-color:#6b3fa0; }
@@ -39,6 +48,12 @@ nav span { color:#fff; font-size:14px; font-weight:bold; margin-left:8px; }
 </style>
 </head>
 <body>
+<div class="tip-box" id="tipBox">
+  <div class="tip-word" id="tipWord"></div>
+  <div class="tip-row"><span class="tip-label">词义：</span><span id="tipMeaning"></span></div>
+  <div class="tip-row"><span class="tip-label">雅思频率：</span><span id="tipFreq"></span></div>
+  <div class="tip-row"><span class="tip-label">常见搭配：</span><span id="tipCollocations"></span></div>
+</div>
 <nav>
   <a href="index.html">← 返回</a>
   <span id="navTitle">加载中…</span>
@@ -158,10 +173,65 @@ var TALKS = [
   }
 ];
 
+// ── 雅思高频词汇库 ──
+var VOCAB = {
+  "ken-robinson-creativity": [
+    {word:"creativity",zh:"创造力；创意",freq:"Academic 极高频",collocations:"foster creativity / creativity and innovation / lack of creativity"},
+    {word:"extraordinary",zh:"非凡的；卓越的",freq:"Academic 高频",collocations:"extraordinary talent / extraordinary achievement / extraordinary circumstances"},
+    {word:"education",zh:"教育；培育",freq:"Academic 极高频",collocations:"higher education / education system / access to education"},
+    {word:"capacity",zh:"能力；容量",freq:"Academic 高频",collocations:"intellectual capacity / capacity to learn / productive capacity"},
+    {word:"fundamental",zh:"基础的；根本的",freq:"Academic 高频",collocations:"fundamental principles / fundamental change / fundamental challenge"},
+    {word:"celebrated",zh:"受赞扬的；著名的",freq:"Academic 中频",collocations:"widely celebrated / celebrated author / celebrated achievement"},
+    {word:"imagination",zh:"想象力；想象",freq:"Academic 高频",collocations:"human imagination / spark imagination / creative imagination"},
+  ],
+  "brene-brown-vulnerability": [
+    {word:"vulnerability",zh:"脆弱；易受攻击",freq:"Academic 高频",collocations:"emotional vulnerability / vulnerability to stress / sense of vulnerability"},
+    {word:"connection",zh:"联结；联系",freq:"Academic 极高频",collocations:"human connection / emotional connection / connection between"},
+    {word:"courage",zh:"勇气；勇敢",freq:"Academic 中频",collocations:"moral courage / courage to face / require courage"},
+    {word:"empathy",zh:"同理心；共情",freq:"Academic 高频",collocations:"show empathy / empathy and compassion / lack of empathy"},
+    {word:"authenticity",zh:"真实性；可靠性",freq:"Academic 中频",collocations:"sense of authenticity / authenticity and integrity / personal authenticity"},
+    {word:"innovation",zh:"创新；革新",freq:"Academic 极高频",collocations:"foster innovation / innovation and creativity / drive innovation"},
+    {word:"gratitude",zh:"感恩；感激",freq:"Academic 中频",collocations:"express gratitude / sense of gratitude / gratitude and appreciation"},
+    {word:"belonging",zh:"归属感；所属",freq:"Academic 中频",collocations:"sense of belonging / belonging and connection / feeling of belonging"},
+    {word:"researcher",zh:"研究员；研究者",freq:"Academic 高频",collocations:"senior researcher / lead researcher / researcher in the field"},
+  ],
+  "simon-sinek-why": [
+    {word:"innovative",zh:"创新的；有革新精神的",freq:"Academic 高频",collocations:"highly innovative / innovative approach / innovative solution"},
+    {word:"inspiration",zh:"灵感；启发",freq:"Academic 中频",collocations:"source of inspiration / draw inspiration / creative inspiration"},
+    {word:"belief",zh:"信念；信仰",freq:"Academic 高频",collocations:"core belief / shared belief / strong belief in"},
+    {word:"organization",zh:"组织；机构",freq:"Academic 极高频",collocations:"nonprofit organization / organization structure / run an organization"},
+    {word:"communicate",zh:"沟通；传达",freq:"Academic 极高频",collocations:"effectively communicate / communicate clearly / communicate ideas"},
+    {word:"purpose",zh:"目的；意义",freq:"Academic 极高频",collocations:"sense of purpose / serve a purpose / clear purpose"},
+    {word:"profit",zh:"利润；盈利",freq:"Academic 高频",collocations:"generate profit / profit margin / non-profit"},
+    {word:"challenge",zh:"挑战；质疑",freq:"Academic 极高频",collocations:"major challenge / face a challenge / challenge the status quo"},
+  ]
+};
+
 var params = new URLSearchParams(location.search);
 var TALK = null;
 for (var i = 0; i < TALKS.length; i++) {
   if (TALKS[i].id === params.get('id')) { TALK = TALKS[i]; break; }
+}
+
+var vocabList = VOCAB[params.get('id')] || [];
+
+// Tooltip 控制
+function showVocTip(event, word, meaning, freq, collocations) {
+  var tip = document.getElementById('tipBox');
+  document.getElementById('tipWord').textContent = word;
+  document.getElementById('tipMeaning').textContent = meaning;
+  document.getElementById('tipFreq').textContent = freq;
+  document.getElementById('tipCollocations').textContent = collocations;
+  tip.classList.add('show');
+  var x = event.clientX + 12;
+  var y = event.clientY - 10;
+  if (x + 250 > window.innerWidth) x = event.clientX - 262;
+  if (y + 160 > window.innerHeight) y = event.clientY - 170;
+  tip.style.left = Math.max(8, x) + 'px';
+  tip.style.top = Math.max(8, y) + 'px';
+}
+function hideVocTip() {
+  document.getElementById('tipBox').classList.remove('show');
 }
 
 if (!TALK) {
@@ -175,19 +245,35 @@ if (!TALK) {
 
   var typeLabel = {op:'观点',ex:'举例',tr:'转折',em:'强调',co:'日常'};
 
-  function highlight(text) {
+  function highlightText(text) {
     var out = text;
+    // 先高亮词块
     for (var j = 0; j < TALK.chunks.length; j++) {
       var c = TALK.chunks[j];
       var re = new RegExp(c.chunk.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
-      out = out.replace(re, '<span class="ch ch-' + c.type + '">' + c.chunk + '</span>');
+      out = out.replace(re, '§CH§' + c.type + '§' + c.chunk + '§/CH§');
     }
+    // 再高亮词汇（避免重复高亮词块内的词）
+    for (var v = 0; v < vocabList.length; v++) {
+      var voc = vocabList[v];
+      var re2 = new RegExp('\\b' + voc.word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '\\b', 'gi');
+      out = out.replace(re2, function(match) {
+        if (out.indexOf('§CH§') > -1) return match; // 跳过词块内部（简化处理）
+        return '§VOC§' + match + '§' + voc.zh + '§' + voc.freq + '§' + voc.collocations + '§/VOC§';
+      });
+    }
+    // 还原词块
+    out = out.replace(/§CH§(\w+)§(.+?)§\/CH§/g, '<span class="ch ch-$1">$2</span>');
+    // 还原词汇
+    out = out.replace(/§VOC§(.+?)§(.+?)§(.+?)§(.+?)§\/VOC§/g, function(match, word, zh, freq, coll) {
+      return '<span class="voc" onmouseenter="showVocTip(event,\'' + word + '\',\'' + zh + '\',\'' + freq + '\',\'' + coll + '\')" onmouseleave="hideVocTip()">' + word + '</span>';
+    });
     return out;
   }
 
   var txHtml = '';
   for (var k = 0; k < TALK.cues.length; k++) {
-    txHtml += '<div class="cue"><div class="cue-en">' + highlight(TALK.cues[k].en) + '</div><div class="cue-zh">' + TALK.cues[k].zh + '</div></div>';
+    txHtml += '<div class="cue"><div class="cue-en">' + highlightText(TALK.cues[k].en) + '</div><div class="cue-zh">' + TALK.cues[k].zh + '</div></div>';
   }
   document.getElementById('txBody').innerHTML = txHtml;
 
