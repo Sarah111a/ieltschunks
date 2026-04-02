@@ -12,6 +12,7 @@ nav a { color:#fff; text-decoration:none; font-size:14px; }
 nav span { color:#fff; font-size:14px; font-weight:bold; margin-left:8px; }
 .video-wrap { position:relative; width:100%; padding-bottom:56.25%; background:#000; }
 .video-wrap iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
+.loading-indicator { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; }
 .content { padding:16px; max-width:800px; margin:0 auto; }
 .talk-title { font-size:22px; font-weight:bold; margin-bottom:4px; }
 .talk-sub { font-size:14px; color:#b5892e; margin-bottom:16px; }
@@ -56,12 +57,13 @@ nav span { color:#fff; font-size:14px; font-weight:bold; margin-left:8px; }
 </div>
 <nav>
   <a href="index.html">← 返回</a>
-  <span id="navTitle">加载中…</span>
+  <span id="navTitle">雅思口语词块</span>
 </nav>
 <div class="content">
   <div class="talk-title" id="tTitle"></div>
   <div class="talk-sub" id="tSub"></div>
   <div class="video-wrap">
+    <div class="loading-indicator" id="videoLoading">视频加载中...</div>
     <iframe id="videoFrame" allowfullscreen allow="autoplay"></iframe>
   </div>
   <div style="margin-top:24px;" id="txBody"></div>
@@ -80,150 +82,49 @@ var TALKS = [
     speaker:"Matt Cutts", year:2011, duration:"3分钟",
     embed_url:"https://player.bilibili.com/player.html?bvid=BV1ZJ411W711&page=1&high_quality=1&danmaku=0",
     cues:[
-      {en:"A few years ago, I felt like I was stuck in a rut, so I decided to follow in the footsteps of the great American philosopher, Morgan Spurlock, and try something new for 30 days.", zh:"几年前，我感觉自己陷入了一成不变的生活，所以我决定追随美国伟大的哲学家摩根·斯普尔洛克的脚步，尝试做新事情30天。"},
-      {en:"The idea is actually pretty simple. Think about something you've always wanted to add to your life and try it for the next 30 days.", zh:"这个想法其实非常简单。想想你一直想在生活中加入的事情，然后在接下来的30天里尝试去做。"},
-      {en:"It turns out 30 days is just about the right amount of time to add a new habit or subtract a habit -- like watching the news -- from your life.", zh:"事实证明，30天正好是在生活中养成一个新习惯或戒掉一个习惯——比如看新闻——的合适时间。"},
-      {en:"There's a few things I learned while doing these 30-day challenges. The first was, instead of the months flying by, forgotten, the time was much more memorable.", zh:"做这些30天挑战时，我学到了几件事。第一件是，那些时光不再像以往那样飞逝而过、被遗忘，而是变得更加难忘。"},
-      {en:"This was part of a challenge I did to take a picture every day for a month. And I remember exactly where I was and what I was doing that day.", zh:"这是我做的一个挑战的一部分——每天拍一张照片，持续一个月。我能清楚地记得那天我在哪里、在做什么。"},
-      {en:"I also noticed that as I started to do more and harder 30-day challenges, my self-confidence grew. I went from desk-dwelling computer nerd to the kind of guy who bikes to work. For fun!", zh:"我还注意到，随着我开始做越来越多、越来越难的30天挑战，我的自信心也增强了。我从一个整天坐在桌前的电脑宅男，变成了一个骑自行车上班的人，而且是为了乐趣！"},
-      {en:"Even last year, I ended up hiking up Mt. Kilimanjaro, the highest mountain in Africa. I would never have been that adventurous before I started my 30-day challenges.", zh:"就在去年，我甚至徒步登上了非洲最高峰——乞力马扎罗山。在我开始30天挑战之前，我从来不会有这么大的冒险精神。"},
-      {en:"I also figured out that if you really want something badly enough, you can do anything for 30 days. Have you ever wanted to write a novel?", zh:"我还发现，如果你真的非常想要某件事，你可以坚持做任何事情30天。你有没有想过写一部小说？"},
-      {en:"Every November, tens of thousands of people try to write their own 50,000-word novel, from scratch, in 30 days. It turns out, all you have to do is write 1,667 words a day for a month. So I did.", zh:"每年11月，数以万计的人尝试在30天内从头开始写一部5万字的小说。事实证明，你只需要每天写1667个字，坚持一个月。所以我就这么做了。"},
-      {en:"By the way, the secret is not to go to sleep until you've written your words for the day. You might be sleep-deprived, but you'll finish your novel.", zh:"顺便说一句，秘诀是：在写完当天的字数之前不要睡觉。你可能会睡眠不足，但你会完成你的小说。"},
-      {en:"Now is my book the next great American novel? No. I wrote it in a month. It's awful. But for the rest of my life, if I meet John Hodgman at a TED party, I don't have to say, 'I'm a computer scientist.' No, no, if I want to, I can say, 'I'm a novelist.'", zh:"那我的书是下一部伟大的美国小说吗？不是。我在一个月内写完的，写得很糟糕。但在我余生里，如果我在TED派对上遇到约翰·霍奇曼，我不必说'我是一个计算机科学家'了。不不，如果我愿意，我可以说'我是一个小说家'。"},
-      {en:"So here's one last thing I'd like to mention. I learned that when I made small, sustainable changes, things I could keep doing, they were more likely to stick.", zh:"所以最后我想说一件事。我发现，当我做出小的、可持续的改变，那些我能够坚持下去的事情，它们更有可能成为习惯。"},
-      {en:"There's nothing wrong with big, crazy challenges. In fact, they're a ton of fun. But they're less likely to stick.", zh:"大胆疯狂的挑战没有什么不对。事实上，它们非常有趣。但它们不太可能坚持下去。"},
-      {en:"When I gave up sugar for 30 days, day 31 looked like this.", zh:"当我戒糖30天后，第31天就变成了这个样子。"},
-      {en:"So here's my question to you: What are you waiting for? I guarantee you the next 30 days are going to pass whether you like it or not, so why not think about something you have always wanted to try and give it a shot for the next 30 days.", zh:"所以我的问题是：你在等什么？我保证接下来的30天无论如何都会过去，那为什么不想想你一直想尝试的事情，然后在接下来的30天里试一试呢？"},
+      {en:"A few years ago, I felt like I was stuck in a rut, so I decided to follow in the footsteps of the great American philosopher, Morgan Spurlock, and try something new for 30 days.", zh:"几年前,我感觉自己陷入了一成不变的生活,所以我决定追随美国伟大的哲学家摩根·斯普尔洛克的脚步,尝试做新事情30天。"},
+      {en:"The idea is actually pretty simple. Think about something you've always wanted to add to your life and try it for the next 30 days.", zh:"这个想法其实非常简单。想想你一直想在生活中加入的事情,然后在接下来的30天里尝试去做。"},
+      {en:"It turns out 30 days is just about the right amount of time to add a new habit or subtract a habit -- like watching the news -- from your life.", zh:"事实证明,30天正好是在生活中养成一个新习惯或戒掉一个习惯——比如看新闻——的合适时间。"},
+      {en:"There's a few things I learned while doing these 30-day challenges. The first was, instead of the months flying by, forgotten, the time was much more memorable.", zh:"做这些30天挑战时,我学到了几件事。第一件是,那些时光不再像以往那样飞逝而过、被遗忘,而是变得更加难忘。"},
+      {en:"This was part of a challenge I did to take a picture every day for a month. And I remember exactly where I was and what I was doing that day.", zh:"这是我做的一个挑战的一部分——每天拍一张照片,持续一个月。我能清楚地记得那天我在哪里、在做什么。"},
+      {en:"I also noticed that as I started to do more and harder 30-day challenges, my self-confidence grew. I went from desk-dwelling computer nerd to the kind of guy who bikes to work. For fun!", zh:"我还注意到,随着我开始做越来越多、越来越难的30天挑战,我的自信心也增强了。我从一个整天坐在桌前的电脑宅男,变成了一个骑自行车上班的人,而且是为了乐趣！"},
+      {en:"Even last year, I ended up hiking up Mt. Kilimanjaro, the highest mountain in Africa. I would never have been that adventurous before I started my 30-day challenges.", zh:"就在去年,我甚至徒步登上了非洲最高峰——乞力马扎罗山。在我开始30天挑战之前,我从来不会有这么大的冒险精神。"},
+      {en:"I also figured out that if you really want something badly enough, you can do anything for 30 days. Have you ever wanted to write a novel?", zh:"我还发现,如果你真的非常想要某件事,你可以坚持做任何事情30天。你有没有想过写一部小说？"},
+      {en:"Every November, tens of thousands of people try to write their own 50,000-word novel, from scratch, in 30 days. It turns out, all you have to do is write 1,667 words a day for a month. So I did.", zh:"每年11月,数以万计的人尝试在30天内从头开始写一部5万字的小说。事实证明,你只需要每天写1667个字,坚持一个月。所以我就这么做了。"},
+      {en:"By the way, the secret is not to go to sleep until you've written your words for the day. You might be sleep-deprived, but you'll finish your novel.", zh:"顺便说一句,秘诀是:在写完当天的字数之前不要睡觉。你可能会睡眠不足,但你会完成你的小说。"},
+      {en:"Now is my book the next great American novel? No. I wrote it in a month. It's awful. But for the rest of my life, if I meet John Hodgman at a TED party, I don't have to say, 'I'm a computer scientist.' No, no, if I want to, I can say, 'I'm a novelist.'", zh:"那我的书是下一部伟大的美国小说吗？不是。我在一个月内写完的,写得很糟糕。但在我余生里,如果我在TED派对上遇到约翰·霍奇曼,我不必说'我是一个计算机科学家'了。不不,如果我愿意,我可以说'我是一个小说家'。"},
+      {en:"So here's one last thing I'd like to mention. I learned that when I made small, sustainable changes, things I could keep doing, they were more likely to stick.", zh:"所以最后我想说一件事。我发现,当我做出小的、可持续的改变,那些我能够坚持下去的事情,它们更有可能成为习惯。"},
+      {en:"There's nothing wrong with big, crazy challenges. In fact, they're a ton of fun. But they're less likely to stick.", zh:"大胆疯狂的挑战没有什么不对。事实上,它们非常有趣。但它们不太可能坚持下去。"},
+      {en:"When I gave up sugar for 30 days, day 31 looked like this.", zh:"当我戒糖30天后,第31天就变成了这个样子。"},
+      {en:"So here's my question to you: What are you waiting for? I guarantee you the next 30 days are going to pass whether you like it or not, so why not think about something you have always wanted to try and give it a shot for the next 30 days.", zh:"所以我的问题是:你在等什么？我保证接下来的30天无论如何都会过去,那为什么不想想你一直想尝试的事情,然后在接下来的30天里试一试呢？"},
     ],
     chunks:[
       {type:"op",chunk:"I felt like I was stuck in a rut",zh:"我感觉陷入了一成不变的生活",score:"Band 7+",alts:["I was in a routine I couldn't break","I felt trapped in the same patterns","I had lost my sense of direction"]},
-      {type:"op",chunk:"I also figured out that",zh:"我还发现……",score:"Band 6+",alts:["I also realized that","I came to understand that","It became clear to me that"]},
-      {type:"op",chunk:"I also noticed that",zh:"我还注意到……",score:"Band 6+",alts:["I also observed that","I became aware that","It struck me that"]},
-      {type:"ex",chunk:"For example",zh:"例如",score:"Band 6+",alts:["For instance","To illustrate","A good case in point is"]},
-      {type:"ex",chunk:"Have you ever wanted to",zh:"你有没有想过……",score:"Band 6+",alts:["Have you ever considered","Did you ever think about","Have you ever dreamed of"]},
-      {type:"tr",chunk:"It turns out",zh:"事实证明……",score:"Band 7+",alts:["As it turns out","It transpires that","What we found is that"]},
-      {type:"tr",chunk:"By the way",zh:"顺便说一句",score:"Band 6+",alts:["Incidentally","On a related note","While I'm on the subject"]},
-      {type:"tr",chunk:"So here's one last thing I'd like to mention",zh:"最后我想说一件事",score:"Band 7+",alts:["Finally, I'd like to add","One more thing worth mentioning","Let me end with this"]},
-      {type:"em",chunk:"a ton of fun",zh:"非常有趣",score:"Band 6+",alts:["incredibly enjoyable","great fun","hugely entertaining"]},
-      {type:"em",chunk:"badly enough",zh:"非常渴望地",score:"Band 7+",alts:["desperately enough","strongly enough","passionately enough"]},
-      {type:"co",chunk:"What are you waiting for?",zh:"你在等什么？",score:"Band 7+",alts:["Why wait any longer?","What's stopping you?","Why not start now?"]},
-      {type:"co",chunk:"give it a shot",zh:"试一试",score:"Band 6+",alts:["give it a try","have a go at it","try it out"]},
-    ]
-  },
-  {
-    id:"derek-sivers-goals",
-    title:"Keep Your Goals to Yourself",
-    title_zh:"不要公开你的目标",
-    speaker:"Derek Sivers", year:2010, duration:"3分钟",
-    embed_url:"https://player.bilibili.com/player.html?aid=497794921&page=1&high_quality=1&danmaku=0",
-    cues:[
-      {en:"Everyone, please think of your biggest personal goal. For real -- you can take a second. You've got to feel this to learn it.", zh:"请大家想想你最大的个人目标。认真的——你可以想一秒钟。你必须感受到它才能学到东西。"},
-      {en:"Take a few seconds and think of your personal biggest goal, okay? Imagine deciding right now that you're going to do it.", zh:"花几秒钟想想你最大的个人目标，好吗？想象一下，现在就决定你要去做它。"},
-      {en:"Imagine telling someone that you meet today what you're going to do. Imagine their congratulations, and their high image of you. Doesn't it feel good to say it out loud?", zh:"想象一下，告诉你今天遇到的某个人你要做什么。想象他们的祝贺，以及他们对你的高度评价。大声说出来感觉很好，不是吗？"},
-      {en:"Don't you feel one step closer already, like it's already becoming part of your identity? Well, bad news: you should have kept your mouth shut.", zh:"你是不是已经感觉近了一步，好像它已经成为你身份的一部分？嗯，坏消息：你应该闭嘴的。"},
-      {en:"Because that good feeling now will make you less likely to do it. The repeated psychology tests have proven that telling someone your goal makes it less likely to happen.", zh:"因为现在这种好感觉会让你更不可能去实现它。反复的心理测试已经证明，告诉别人你的目标会让它更不可能发生。"},
-      {en:"Any time you have a goal, there are some steps that need to be done, some work that needs to be done in order to achieve it. Ideally you would not be satisfied until you'd actually done the work.", zh:"任何时候你有一个目标，都需要完成一些步骤，需要做一些工作才能实现它。理想情况下，在你真正完成工作之前，你不应该感到满足。"},
-      {en:"But when you tell someone your goal and they acknowledge it, psychologists have found that it's called a 'social reality.' The mind is kind of tricked into feeling that it's already done.", zh:"但是当你告诉别人你的目标而他们承认它时，心理学家发现这被称为'社会现实'。大脑会被欺骗，感觉它已经完成了。"},
-      {en:"And then because you've felt that satisfaction, you're less motivated to do the actual hard work necessary.", zh:"然后因为你感受到了那种满足感，你就不太有动力去做实际需要的艰难工作了。"},
-      {en:"So this goes against conventional wisdom that we should tell our friends our goals, right? So they hold us to it.", zh:"所以这违背了常规智慧——我们应该告诉朋友我们的目标，对吧？这样他们可以督促我们。"},
-      {en:"So, let's look at the proof. 1926: Kurt Lewin, founder of social psychology, called this 'substitution.' 1933: Wera Mahler found when it was acknowledged by others, it felt real in the mind.", zh:"那么，让我们看看证据。1926年：社会心理学创始人库尔特·勒温称之为'替代'。1933年：韦拉·马勒发现，当目标被他人认可时，在大脑中会感觉已经实现了。"},
-      {en:"163 people across four separate tests. Everyone wrote down their personal goal. Then half of them announced their commitment to this goal to the room, and half didn't.", zh:"四项独立测试，163人参与。每个人都写下了自己的个人目标。然后一半人向房间里的人宣布了他们对这个目标的承诺，另一半没有。"},
-      {en:"Then everyone was given 45 minutes of work that would directly lead them towards their goal, but they were told that they could stop at any time.", zh:"然后每个人都被给予45分钟的工作，这些工作会直接帮助他们实现目标，但被告知他们可以随时停止。"},
-      {en:"Now, those who kept their mouths shut worked the entire 45 minutes on average, and when asked afterward, said that they felt that they had a long way to go still to achieve their goal.", zh:"那些保持沉默的人平均工作了整整45分钟，事后被问及时，说他们感觉距离实现目标还有很长的路要走。"},
-      {en:"But those who had announced it quit after only 33 minutes, on average, and when asked afterward, said that they felt much closer to achieving their goal.", zh:"但那些宣布了目标的人平均只工作了33分钟就放弃了，事后被问及时，说他们感觉距离实现目标近多了。"},
-      {en:"So if this is true, what can we do? Well, you could resist the temptation to announce your goal. You can delay the gratification that the social acknowledgment brings.", zh:"那么如果这是真的，我们能做什么？嗯，你可以抵制宣布目标的诱惑。你可以延迟社会认可带来的满足感。"},
-      {en:"And you can understand that your mind mistakes the talking for the doing. But if you do need to talk about something, you can state it in a way that gives you no satisfaction.", zh:"你可以理解，你的大脑会把谈论误认为是在做事。但如果你确实需要谈论某事，你可以用一种让你没有满足感的方式表达它。"},
-      {en:"Such as, 'I really want to run this marathon, so I need to train five times a week and kick my ass if I don't, okay?' So audience, next time you're tempted to tell someone your goal, what will you say?", zh:"比如，'我真的很想参加这场马拉松，所以我需要每周训练五次，如果没做到就自我惩罚，好吗？'所以，观众们，下次当你忍不住想告诉别人你的目标时，你会怎么说？"},
-    ],
-    chunks:[
-      {type:"op",chunk:"The repeated psychology tests have proven that",zh:"反复的心理测试已经证明……",score:"Band 8+",alts:["Research has consistently shown that","Studies have repeatedly demonstrated that","Evidence conclusively proves that"]},
-      {type:"op",chunk:"this goes against conventional wisdom",zh:"这违背了常规智慧",score:"Band 8+",alts:["this contradicts common belief","this challenges the traditional view","this runs counter to popular thinking"]},
-      {type:"ex",chunk:"let's look at the proof",zh:"让我们看看证据",score:"Band 7+",alts:["let's examine the evidence","consider the following data","here's the research to support this"]},
-      {type:"tr",chunk:"So if this is true, what can we do?",zh:"那么如果这是真的，我们能做什么？",score:"Band 7+",alts:["So what are the implications of this?","Given this, how should we respond?","What does this mean for us in practice?"]},
-      {type:"tr",chunk:"But if you do need to",zh:"但如果你确实需要……",score:"Band 6+",alts:["However, if you must","That said, if you really have to","If it's absolutely necessary to"]},
-      {type:"em",chunk:"you should have kept your mouth shut",zh:"你应该闭嘴的",score:"Band 7+",tip:"幽默的强调表达，口语中很有力度",alts:["you should have stayed silent","you should have said nothing","silence would have served you better"]},
-      {type:"em",chunk:"the mind is kind of tricked into",zh:"大脑会被欺骗以为……",score:"Band 7+",alts:["the brain is fooled into thinking","we unconsciously convince ourselves","our mind mistakenly believes"]},
-      {type:"co",chunk:"For real",zh:"认真的；真的",score:"Band 6+",alts:["seriously","honestly","I mean it"]},
-      {type:"co",chunk:"right?",zh:"对吧？（互动反问）",score:"Band 6+",alts:["wouldn't you agree?","don't you think?","isn't that so?"]},
-    ]
-  },
-  {
-    id:"joseph-pine-authenticity",
-    title:"What Consumers Want",
-    title_zh:"消费者真正想要什么",
-    speaker:"Joseph Pine", year:2004, duration:"14分钟",
-    embed_url:"https://player.bilibili.com/player.html?bvid=BV1et4y1z7Yn&page=1&high_quality=1&danmaku=0",
-    cues:[
-      {en:"I'm going to talk about a very fundamental change that is going on in the very fabric of the modern economy.", zh:"我将谈论一个正在现代经济基本结构中发生的非常根本性的变化。"},
-      {en:"In the beginning were commodities. Commodities are things that you grow in the ground, raise on the ground or pull out of the ground: basically, animal, mineral, vegetable.", zh:"起初是商品。商品是你在地里种植、在地面上饲养或从地下开采出来的东西：基本上就是动物、矿物、蔬菜。"},
-      {en:"Commodities were the basis of the agrarian economy that lasted for millennia. But then along came the industrial revolution, and then goods became the predominant economic offering.", zh:"商品是延续了数千年的农业经济的基础。但后来工业革命来临，商品成为了主要的经济产品。"},
-      {en:"So, we moved from an agrarian economy to an industrial economy. And what happened over the last 50 or 60 years is that goods have become commoditized — where people don't care who makes them, they just care about price, price and price.", zh:"于是，我们从农业经济转向了工业经济。而在过去五六十年里发生的事情是，商品变得大众化了——人们不在乎谁生产它们，他们只关心价格、价格，还是价格。"},
-      {en:"Now, there's an antidote to commoditization, and that is customization. Customizing a good automatically turned it into a service, because it was done just for a particular person.", zh:"现在，商品化的解药就是定制化。定制一件商品会自动将其变成一种服务，因为它是专门为特定的人做的。"},
-      {en:"So, we moved from an industrial economy to a service-based economy. But over the past 10 or 20 years, what's happened is that services are being commoditized as well.", zh:"于是，我们从工业经济转向了以服务为基础的经济。但在过去十到二十年里，服务也开始商品化了。"},
-      {en:"What that means is that it's time to move to a new level of economic value — to go beyond the goods and the services. What happens when you customize a service? You can't help but turn it into a memorable event — you can't help but turn it into an experience.", zh:"这意味着是时候转向新的经济价值层次了——超越商品和服务。当你定制一项服务时会发生什么？你忍不住把它变成一个难忘的事件——你忍不住把它变成一种体验。"},
-      {en:"So we're shifting to an experience economy, where experiences are becoming the predominant economic offering.", zh:"所以我们正在转向体验经济，在这种经济中，体验正在成为主要的经济产品。"},
-      {en:"There is no such thing as an inauthentic experience. Why? Because the experience happens inside of us. It's our reaction to the events that are staged in front of us.", zh:"不存在不真实的体验。为什么？因为体验发生在我们内心。它是我们对在我们面前上演的事件的反应。"},
-      {en:"As long as we are in any sense authentic human beings, then every experience we have is authentic. There may be more or less natural or artificial stimuli, but even that is a matter of degree, not kind.", zh:"只要我们在某种意义上是真实的人，那么我们拥有的每一种体验都是真实的。刺激可能更自然或更人工，但即使这样也只是程度问题，而不是种类问题。"},
-      {en:"But nonetheless, everyone has this desire for the authentic. And authenticity is therefore becoming the new consumer sensibility — the buying criteria by which consumers are choosing who they're going to buy from.", zh:"但尽管如此，每个人都有对真实性的渴望。因此，真实性正在成为新的消费者感受——消费者用来选择从谁那里购买的购买标准。"},
-      {en:"There are two dimensions to authenticity: one, being true to yourself; two, is other-directed: being what you say you are to others.", zh:"真实性有两个维度：一是忠于自我；二是面向他人：言行一致，表里如一。"},
-      {en:"If you are both true to yourself and are what you say you are, then you're real real!", zh:"如果你既忠于自我，又言行一致，那么你就是真正的真实！"},
-      {en:"Think about coffee. Coffee beans at their core are worth two or three cents per cup. But grind it, roast it, package it — five to fifteen cents. Brew it for a customer in a diner — fifty cents to a dollar.", zh:"想想咖啡。咖啡豆的核心价值是每杯两三美分。但是磨碎它、烘焙它、包装它——五到十五美分。在餐厅为顾客冲泡它——五十美分到一美元。"},
-      {en:"But surround the brewing of that coffee with the ambiance of a Starbucks, with the authentic experience, and now you can charge two, three, four, five dollars for a cup of coffee.", zh:"但是用星巴克的氛围、真实的体验来包围那杯咖啡的冲泡过程，现在你可以为一杯咖啡收取两、三、四、五美元。"},
-      {en:"So, authenticity is becoming the new consumer sensibility. Three basic rules: One, don't say you're authentic unless you really are. Two, it's easier to be authentic if you don't say you're authentic.", zh:"所以，真实性正在成为新的消费者感受。三条基本规则：第一，除非你真的是，否则不要说你是真实的。第二，如果你不说你是真实的，反而更容易真实。"},
-      {en:"And three, if you say you're authentic, you better be authentic. Increasingly, what will make us happy is spending our time and money satisfying the desire for authenticity. Thank you.", zh:"第三，如果你说你是真实的，你最好真的是真实的。越来越多地，让我们快乐的是把时间和金钱花在满足对真实性的渴望上。谢谢。"},
-    ],
-    chunks:[
-      {type:"op",chunk:"I'm going to talk about",zh:"我将谈论……",score:"Band 6+",alts:["I'd like to discuss","My focus today is on","What I want to explore is"]},
-      {type:"op",chunk:"There is no such thing as",zh:"根本不存在……",score:"Band 8+",alts:["It's simply not possible to have","We cannot speak of","The concept of X doesn't really exist"]},
-      {type:"op",chunk:"it's a matter of degree, not kind",zh:"这只是程度问题，而不是种类问题",score:"Band 8+",alts:["it differs in degree rather than in nature","it's quantitative not qualitative","the difference is one of scale not type"]},
-      {type:"ex",chunk:"Think about coffee",zh:"以咖啡为例",score:"Band 6+",alts:["Consider the example of coffee","Take coffee as an illustration","Coffee is a perfect example of this"]},
-      {type:"ex",chunk:"what happened over the last 50 or 60 years",zh:"在过去五六十年里发生的事情",score:"Band 7+",alts:["over the past few decades","in recent decades","throughout the last half century"]},
-      {type:"tr",chunk:"But then along came",zh:"但后来……来临了",score:"Band 7+",alts:["Then came","This was followed by","The next development was"]},
-      {type:"tr",chunk:"What that means is that",zh:"这意味着……",score:"Band 7+",alts:["The implication is that","This suggests that","As a result of this"]},
-      {type:"tr",chunk:"So we're shifting to",zh:"所以我们正在转向……",score:"Band 7+",alts:["We are moving towards","The trend is moving to","There's a clear shift towards"]},
-      {type:"em",chunk:"you can't help but",zh:"你忍不住……",score:"Band 7+",alts:["you inevitably","you naturally end up","it's impossible not to"]},
-      {type:"co",chunk:"right?",zh:"对吧？",score:"Band 6+",alts:["wouldn't you agree?","don't you think?","isn't that the case?"]},
+      {type:"tr",chunk:"It turns out",zh:"事实证明;原来",score:"Band 6.5+",alts:["As it happens","In the end","Interestingly enough"]},
+      {type:"op",chunk:"the months flying by",zh:"时间飞逝",score:"Band 7+",alts:["time passing quickly","days slipping away","the days rushing past"]},
+      {type:"em",chunk:"much more memorable",zh:"更加难忘",score:"Band 6+",alts:["far more unforgettable","significantly more impactful","truly noteworthy"]},
+      {type:"op",chunk:"my self-confidence grew",zh:"我的自信心增强了",score:"Band 6.5+",alts:["I became more confident","my confidence increased","I felt more assured"]},
+      {type:"co",chunk:"For fun!",zh:"为了乐趣！",score:"Band 5+",alts:["Just for enjoyment","As a hobby","For pleasure"]},
+      {type:"em",chunk:"I would never have been that adventurous",zh:"我从来不会有这么大的冒险精神",score:"Band 7+",alts:["I wouldn't have taken such risks","I'd have been too cautious","I'd never have dared"]},
+      {type:"op",chunk:"if you really want something badly enough",zh:"如果你真的非常想要某件事",score:"Band 6.5+",alts:["if you're truly determined","if your desire is strong enough","if you're committed to something"]},
+      {type:"tr",chunk:"By the way",zh:"顺便说一句",score:"Band 5+",alts:["Incidentally","On a side note","As an aside"]},
+      {type:"em",chunk:"for the rest of my life",zh:"在我余生里",score:"Band 6+",alts:["from now on","for all my remaining years","forever after"]},
+      {type:"op",chunk:"small, sustainable changes",zh:"小的、可持续的改变",score:"Band 7+",alts:["gradual, maintainable shifts","modest, lasting modifications","incremental, enduring adjustments"]},
+      {type:"em",chunk:"they're more likely to stick",zh:"它们更有可能坚持下去",score:"Band 6.5+",alts:["they tend to last","they're easier to maintain","they become permanent"]},
     ]
   }
 ];
-];
 
-// ── 雅思高频词汇库 ──
 var VOCAB = {
   "matt-cutts-30days": [
-    {word:"sustainable",zh:"可持续的；持久的",freq:"Academic 高频",collocations:"sustainable change / sustainable development / sustainable growth"},
-    {word:"memorable",zh:"难忘的；值得纪念的",freq:"Academic 中频",collocations:"memorable experience / memorable moment / truly memorable"},
-    {word:"confidence",zh:"自信；信心",freq:"Academic 极高频",collocations:"self-confidence / build confidence / lack of confidence"},
-    {word:"adventurous",zh:"勇于冒险的；大胆的",freq:"Academic 中频",collocations:"adventurous spirit / feel adventurous / adventurous person"},
-    {word:"challenge",zh:"挑战；考验",freq:"Academic 极高频",collocations:"face a challenge / 30-day challenge / rise to the challenge"},
-  ],
-  "derek-sivers-goals": [
-    {word:"psychology",zh:"心理学；心理",freq:"Academic 极高频",collocations:"social psychology / psychology research / applied psychology"},
-    {word:"conventional",zh:"传统的；常规的",freq:"Academic 高频",collocations:"conventional wisdom / conventional approach / conventional thinking"},
-    {word:"acknowledge",zh:"承认；认可",freq:"Academic 高频",collocations:"acknowledge a goal / acknowledge the fact / widely acknowledged"},
-    {word:"satisfaction",zh:"满足感；满意",freq:"Academic 高频",collocations:"sense of satisfaction / feel satisfaction / personal satisfaction"},
-    {word:"motivated",zh:"有动力的；积极的",freq:"Academic 高频",collocations:"highly motivated / stay motivated / motivated to achieve"},
-    {word:"commitment",zh:"承诺；投入",freq:"Academic 高频",collocations:"commitment to a goal / strong commitment / show commitment"},
-    {word:"gratification",zh:"满足；快感",freq:"Academic 中频",collocations:"delay gratification / instant gratification / social gratification"},
-  ],
-  "joseph-pine-authenticity": [
-    {word:"authenticity",zh:"真实性；真正",freq:"Academic 高频",collocations:"sense of authenticity / render authenticity / desire for authenticity"},
-    {word:"economy",zh:"经济；经济体",freq:"Academic 极高频",collocations:"experience economy / global economy / emerging economy"},
-    {word:"commodity",zh:"商品；大宗货物",freq:"Academic 高频",collocations:"basic commodity / commodity price / raw commodity"},
-    {word:"customization",zh:"定制；个性化",freq:"Academic 中频",collocations:"mass customization / product customization / customization options"},
-    {word:"experience",zh:"体验；经历",freq:"Academic 极高频",collocations:"authentic experience / memorable experience / consumer experience"},
-    {word:"perception",zh:"感知；看法",freq:"Academic 高频",collocations:"consumer perception / expand perception / change perception"},
-  ],
-  "simon-sinek-why": [
-    {word:"innovative",zh:"创新的；有革新精神的",freq:"Academic 高频",collocations:"highly innovative / innovative approach / innovative solution"},
-    {word:"inspiration",zh:"灵感；启发",freq:"Academic 中频",collocations:"source of inspiration / draw inspiration / creative inspiration"},
-    {word:"belief",zh:"信念；信仰",freq:"Academic 高频",collocations:"core belief / shared belief / strong belief in"},
-    {word:"organization",zh:"组织；机构",freq:"Academic 极高频",collocations:"nonprofit organization / organization structure / run an organization"},
-    {word:"communicate",zh:"沟通；传达",freq:"Academic 极高频",collocations:"effectively communicate / communicate clearly / communicate ideas"},
-    {word:"purpose",zh:"目的；意义",freq:"Academic 极高频",collocations:"sense of purpose / serve a purpose / clear purpose"},
-    {word:"profit",zh:"利润；盈利",freq:"Academic 高频",collocations:"generate profit / profit margin / non-profit"},
-    {word:"challenge",zh:"挑战；质疑",freq:"Academic 极高频",collocations:"major challenge / face a challenge / challenge the status quo"},
+    {word:"philosopher",zh:"哲学家；思想家",freq:"Academic 高频",collocations:"great philosopher / moral philosopher / ancient philosopher"},
+    {word:"footsteps",zh:"脚步；足迹；榜样",freq:"General 中频",collocations:"follow in footsteps / hear footsteps / footsteps of success"},
+    {word:"memorable",zh:"难忘的；值得纪念的",freq:"Academic 中频",collocations:"memorable experience / truly memorable / memorable moment"},
+    {word:"challenge",zh:"挑战；质疑",freq:"Academic 极高频",collocations:"face a challenge / accept a challenge / 30-day challenge"},
+    {word:"confidence",zh:"信心；自信",freq:"Academic 高频",collocations:"self-confidence / build confidence / confidence grew"},
+    {word:"adventurous",zh:"爱冒险的；大胆的",freq:"General 中频",collocations:"adventurous spirit / feel adventurous / adventurous person"},
+    {word:"novel",zh:"小说；新颖的(adj)",freq:"Academic 高频",collocations:"write a novel / great novel / novel idea"},
+    {word:"sustainable",zh:"可持续的；可维持的",freq:"Academic 高频",collocations:"sustainable development / sustainable change / sustainable practice"},
   ]
 };
 
@@ -254,14 +155,28 @@ function hideVocTip() {
   document.getElementById('tipBox').classList.remove('show');
 }
 
+// 页面加载完成后立即渲染内容
 if (!TALK) {
   document.getElementById('txBody').innerHTML = '<p style="color:red;padding:20px">演讲未找到，请返回首页</p>';
+  document.getElementById('videoLoading').textContent = '演讲数据未找到';
 } else {
+  // 立即更新页面标题和内容
   document.title = TALK.title_zh + ' · TED英语词块';
   document.getElementById('navTitle').textContent = TALK.title_zh;
   document.getElementById('tTitle').textContent = TALK.title;
   document.getElementById('tSub').textContent = TALK.speaker + ' · ' + TALK.year + ' · ' + TALK.duration;
-  document.getElementById('videoFrame').src = TALK.embed_url;
+  
+  // 设置视频iframe
+  var videoFrame = document.getElementById('videoFrame');
+  videoFrame.src = TALK.embed_url;
+  
+  // 视频加载超时处理（5秒后隐藏加载提示）
+  setTimeout(function() {
+    var loadingEl = document.getElementById('videoLoading');
+    if (loadingEl) {
+      loadingEl.style.display = 'none';
+    }
+  }, 5000);
 
   var typeLabel = {op:'观点',ex:'举例',tr:'转折',em:'强调',co:'日常'};
 
@@ -273,12 +188,12 @@ if (!TALK) {
       var re = new RegExp(c.chunk.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
       out = out.replace(re, '§CH§' + c.type + '§' + c.chunk + '§/CH§');
     }
-    // 再高亮词汇（避免重复高亮词块内的词）
+    // 再高亮词汇
     for (var v = 0; v < vocabList.length; v++) {
       var voc = vocabList[v];
       var re2 = new RegExp('\\b' + voc.word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '\\b', 'gi');
       out = out.replace(re2, function(match) {
-        if (out.indexOf('§CH§') > -1) return match; // 跳过词块内部（简化处理）
+        if (out.indexOf('§CH§') > -1 && out.lastIndexOf('§CH§') < out.lastIndexOf(match)) return match;
         return '§VOC§' + match + '§' + voc.zh + '§' + voc.freq + '§' + voc.collocations + '§/VOC§';
       });
     }
@@ -286,17 +201,19 @@ if (!TALK) {
     out = out.replace(/§CH§(\w+)§(.+?)§\/CH§/g, '<span class="ch ch-$1">$2</span>');
     // 还原词汇
     out = out.replace(/§VOC§(.+?)§(.+?)§(.+?)§(.+?)§\/VOC§/g, function(match, word, zh, freq, coll) {
-      return '<span class="voc" onmouseenter="showVocTip(event,\'' + word + '\',\'' + zh + '\',\'' + freq + '\',\'' + coll + '\')" onmouseleave="hideVocTip()">' + word + '</span>';
+      return '<span class="voc" onmouseenter="showVocTip(event,\'' + word + '\',\'' + zh + '\',\'' + freq + '\',\'' + coll.replace(/'/g, '\\\'') + '\')" onmouseleave="hideVocTip()">' + word + '</span>';
     });
     return out;
   }
 
+  // 立即渲染字幕内容
   var txHtml = '';
   for (var k = 0; k < TALK.cues.length; k++) {
     txHtml += '<div class="cue"><div class="cue-en">' + highlightText(TALK.cues[k].en) + '</div><div class="cue-zh">' + TALK.cues[k].zh + '</div></div>';
   }
   document.getElementById('txBody').innerHTML = txHtml;
 
+  // 立即渲染词块列表
   var chunksHtml = '';
   for (var m = 0; m < TALK.chunks.length; m++) {
     var ch = TALK.chunks[m];
