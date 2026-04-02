@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TED英语词块</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: sans-serif; background:#f7f3ec; color:#222; }
+nav { background:#c0392b; padding:12px 16px; display:flex; align-items:center; gap:10px; }
+nav a { color:#fff; text-decoration:none; font-size:14px; }
+nav span { color:#fff; font-size:14px; font-weight:bold; margin-left:8px; }
+.video-wrap { position:relative; width:100%; padding-bottom:56.25%; background:#000; }
+.video-wrap iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
+.content { padding:16px; max-width:800px; margin:0 auto; }
+.talk-title { font-size:22px; font-weight:bold; margin-bottom:4px; }
+.talk-sub { font-size:14px; color:#b5892e; margin-bottom:16px; }
+.cue { padding:10px 0; border-bottom:1px solid #ddd; }
+.cue-en { font-size:15px; line-height:1.7; }
+.cue-zh { font-size:13px; color:#888; margin-top:3px; }
+.ch { border-radius:3px; padding:1px 3px; font-weight:bold; cursor:pointer; }
+.ch-op { background:#f0eaf9; color:#6b3fa0; }
+.ch-ex { background:#e6f3f8; color:#1a6b8a; }
+.ch-tr { background:#fdf0e2; color:#b85c00; }
+.ch-em { background:#fae8ee; color:#a0264a; }
+.ch-co { background:#e6f5ec; color:#2a7a4a; }
+.chunks-section { margin-top:32px; padding-top:16px; border-top:2px solid #ddd; }
+.chunks-title { font-size:18px; font-weight:bold; margin-bottom:12px; }
+.chunk-item { background:#fff; border-radius:8px; padding:12px; margin-bottom:10px; border-left:4px solid #ccc; }
+.chunk-item.op { border-color:#6b3fa0; }
+.chunk-item.ex { border-color:#1a6b8a; }
+.chunk-item.tr { border-color:#b85c00; }
+.chunk-item.em { border-color:#a0264a; }
+.chunk-item.co { border-color:#2a7a4a; }
+.chunk-en { font-size:15px; font-weight:bold; font-style:italic; margin-bottom:4px; }
+.chunk-zh { font-size:13px; color:#666; margin-bottom:4px; }
+.chunk-alts { font-size:12px; color:#888; }
+.chunk-score { display:inline-block; background:#eee; border-radius:8px; padding:1px 8px; font-size:11px; color:#555; margin-top:4px; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">← 返回</a>
+  <span id="navTitle">加载中…</span>
+</nav>
+<div class="content">
+  <div class="talk-title" id="tTitle"></div>
+  <div class="talk-sub" id="tSub"></div>
+  <div class="video-wrap">
+    <iframe id="videoFrame" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div style="margin-top:24px;" id="txBody"></div>
+  <div class="chunks-section">
+    <div class="chunks-title">📚 雅思口语词块</div>
+    <div id="chunksBody"></div>
+  </div>
+</div>
+
+<script>
+var TALKS = [
+  {
+    id:"ken-robinson-creativity",
+    title:"Do Schools Kill Creativity?",
+    title_zh:"学校扼杀了创造力吗？",
+    speaker:"Ken Robinson", year:2006, duration:"19分钟",
+    embed_url:"https://player.bilibili.com/player.html?bvid=BV1Js411276E&page=1&high_quality=1&danmaku=0",
+    cues:[
+      {en:"Good morning. How are you? It's been great, hasn't it? I've been blown away by the whole thing. In fact, I'm leaving.", zh:"早上好。一切都很棒，不是吗？整个活动真的令我叹为观止。事实上，我要离开了。"},
+      {en:"There have been three themes running through the conference which are relevant to what I want to talk about.", zh:"贯穿整个会议有三个主题，与我今天想谈论的内容密切相关。"},
+      {en:"One is the extraordinary evidence of human creativity. Just the variety and the range of it has been itself rather extraordinary.", zh:"其一是所有演讲所展现出的非凡的人类创造力。仅仅是这种多样性和广度本身就已经相当非凡了。"},
+      {en:"I have an interest in education. Actually, I find everybody has an interest in education. Don't you? I find this very interesting.", zh:"我对教育很感兴趣。实际上，我发现每个人都对教育感兴趣。不是吗？我觉得这非常有趣。"},
+      {en:"I believe this passionately: that we don't grow into creativity, we grow out of it. Or rather, we get educated out of it.", zh:"我对此深信不疑：我们并不是成长为有创造力的人，而是在成长中失去了创造力。或者更确切地说，我们被教育得失去了创造力。"},
+      {en:"We stigmatize mistakes. Children, if they're not sure of the answer, will not put their hand up. They're afraid of being wrong. And the result is that we are educating people out of their creative capacities.", zh:"我们污名化错误。孩子们如果不确定答案，是不会举手的。他们害怕犯错。结果是，我们正在把人们的创造力从教育中剥离出去。"},
+      {en:"Picasso once said — and I think this is absolutely right — that all children are born artists. The problem is to remain an artist as we grow up.", zh:"毕加索曾经说过——所有孩子生来都是艺术家。问题在于如何在长大后仍然保持艺术家的身份。"},
+      {en:"There's a story that Shakespeare was also at the school. Teachers might have said: 'Well, we'll be positive — but you know, there's a lot of risk in writing. You might want to consider a backup plan.'", zh:"有一个故事，莎士比亚也在那所学校上过学。老师们可能会说：'好吧，我们保持积极的态度——但你知道，写作有很多风险。'"},
+      {en:"I'm talking about a world where their curiosity is celebrated, where their imaginations are embraced. And I think this is the fundamental challenge for education.", zh:"我所说的是一个好奇心受到称赞、想象力受到珍视的世界。我认为这是教育面临的根本挑战。"},
+      {en:"What's more, we have to rethink the fundamental principles on which we're educating our children. What TED celebrates is the gift of the human imagination. By the way, we may not see this future — but they will. Thank you.", zh:"而且，我们必须重新思考教育孩子所依据的根本原则。TED所颂扬的是人类想象力的恩赐。顺便说一句，我们可能看不到这个未来——但他们会的。谢谢。"},
+    ],
+    chunks:[
+      {type:"op",chunk:"I believe this passionately",zh:"我对此深信不疑",score:"Band 7+",alts:["I'm firmly convinced that","I strongly believe that"]},
+      {type:"op",chunk:"I think this is absolutely right",zh:"我认为这完全正确",score:"Band 6+",alts:["I couldn't agree more","That's entirely true"]},
+      {type:"op",chunk:"What I want to talk about",zh:"我想谈论的是……",score:"Band 7+",alts:["What I'd like to discuss","The point I want to make is"]},
+      {type:"op",chunk:"I find this very interesting",zh:"我觉得这非常有趣",score:"Band 6+",alts:["I find it fascinating","What strikes me is"]},
+      {type:"op",chunk:"I have an interest in",zh:"我对……很感兴趣",score:"Band 6+",alts:["I'm particularly passionate about","I'm quite keen on"]},
+      {type:"ex",chunk:"Picasso once said",zh:"毕加索曾经说过……",score:"Band 7+",alts:["As Picasso famously put it","There's a wonderful quote by Picasso"]},
+      {type:"ex",chunk:"In fact",zh:"事实上",score:"Band 6+",alts:["As a matter of fact","Actually"]},
+      {type:"ex",chunk:"There's a story that",zh:"有一个故事……",score:"Band 7+",alts:["I once read that","It reminds me of a story about"]},
+      {type:"tr",chunk:"Or rather",zh:"或者更确切地说……",score:"Band 8+",alts:["To be more precise","More accurately"]},
+      {type:"tr",chunk:"And the result is that",zh:"结果是……",score:"Band 7+",alts:["Consequently","As a result"]},
+      {type:"tr",chunk:"By the way",zh:"顺便说一句",score:"Band 6+",alts:["Incidentally","On a related note"]},
+      {type:"tr",chunk:"What's more",zh:"而且；更重要的是",score:"Band 7+",alts:["Furthermore","Moreover"]},
+      {type:"em",chunk:"blown away by",zh:"被……彻底震撼",score:"Band 7+",alts:["deeply moved by","absolutely amazed by"]},
+      {type:"em",chunk:"rather extraordinary",zh:"相当非凡的",score:"Band 7+",alts:["quite remarkable","truly exceptional"]},
+      {type:"co",chunk:"Don't you?",zh:"不是吗？",score:"Band 7+",alts:["Isn't it?","Wouldn't you agree?"]},
+      {type:"co",chunk:"Actually",zh:"实际上；其实",score:"Band 6+",alts:["In actual fact","Truth be told"]},
+    ]
+  },
+  {
+    id:"brene-brown-vulnerability",
+    title:"The Power of Vulnerability",
+    title_zh:"脆弱的力量",
+    speaker:"Brené Brown", year:2010, duration:"20分钟",
+    embed_url:"https://player.bilibili.com/player.html?bvid=BV1N7411P7jX&page=1&high_quality=1&danmaku=0",
+    cues:[
+      {en:"So, I'll start with this: a couple years ago, an event planner called me because I was going to do a speaking event.", zh:"我从这里开始：几年前，一位活动策划人打电话给我，因为我要去做一个演讲。"},
+      {en:"And she said, 'I'm really struggling with how to describe what you do.' 'Are you a researcher?' I said, 'Yes.' She goes, 'Well, that's not going to work.'", zh:"她说，'我真的很难描述你以什么为生。''你是研究员吗？'我说，'是的。'她说，'那可不行。'"},
+      {en:"And so I thought, you know what, I am a researcher-storyteller. I want to talk to you today about vulnerability.", zh:"于是我想，我是一个研究员兼讲故事的人。今天我要和你们谈谈脆弱。"},
+      {en:"I'll start with something that I think we all know to be true: connection is why we're here. It is what gives purpose and meaning to our lives.", zh:"我从我认为我们都知道的真相开始：联结是我们存在的原因。它赋予我们的生活目的和意义。"},
+      {en:"As a researcher, I think the most dangerous thing we do is compare our behind-the-scenes with everyone else's highlight reel.", zh:"作为研究员，我认为我们做的最危险的事是用自己的幕后与别人的高光时刻相比较。"},
+      {en:"I'll give you an example. I'll start with my own story. Vulnerability is the birthplace of innovation, creativity and change.", zh:"我来举个例子。我从自己的故事开始。脆弱是创新、创造力和改变的发源地。"},
+      {en:"You cannot selectively numb emotion. When we numb the painful emotions, we also numb joy, we numb gratitude, we numb happiness.", zh:"你无法选择性地麻木情感。当我们麻木痛苦的情感时，我们也麻木了喜悦、感恩和幸福。"},
+      {en:"The truth is that vulnerability is the birthplace of love, belonging, joy, courage, empathy, and creativity.", zh:"事实是，脆弱是爱、归属感、喜悦、勇气、同理心和创造力的发源地。"},
+      {en:"My greatest want for you is this: that you have the courage to be imperfect, in order to be who you are. Thank you.", zh:"我对你最大的期望是：你有勇气不完美，成为真正的自己。谢谢。"},
+    ],
+    chunks:[
+      {type:"op",chunk:"I want to talk to you about",zh:"我想和你们谈谈……",score:"Band 7+",alts:["I'd like to discuss","I'm here to talk about"]},
+      {type:"op",chunk:"I think we all know to be true",zh:"我们都知道这是真的",score:"Band 7+",alts:["I think most people would agree","We can all relate to this"]},
+      {type:"op",chunk:"As a researcher",zh:"作为一名研究员",score:"Band 7+",alts:["In my experience","From my perspective"]},
+      {type:"ex",chunk:"I'll give you an example",zh:"我来举个例子",score:"Band 6+",alts:["For instance","Let me illustrate this"]},
+      {type:"ex",chunk:"I'll start with",zh:"我从……开始",score:"Band 6+",alts:["Let me begin with","I'd like to open with"]},
+      {type:"tr",chunk:"And so I thought",zh:"于是我想……",score:"Band 6+",alts:["So I decided","That's when I realized"]},
+      {type:"tr",chunk:"The truth is that",zh:"事实是……",score:"Band 7+",alts:["The reality is","What's true is"]},
+      {type:"em",chunk:"You cannot selectively numb",zh:"你无法选择性地麻木……",score:"Band 8+",alts:["It's impossible to selectively avoid","You can't pick and choose"]},
+      {type:"co",chunk:"you know what",zh:"你知道吗",score:"Band 6+",alts:["here's the thing","the truth is"]},
+      {type:"op",chunk:"My greatest want for you is this",zh:"我对你最大的期望是……",score:"Band 8+",alts:["What I hope for you is","My wish for you is"]},
+      {type:"tr",chunk:"in order to be",zh:"为了成为……",score:"Band 6+",alts:["so that you can be","to become"]},
+    ]
+  },
+  {
+    id:"simon-sinek-why",
+    title:"How Great Leaders Inspire Action",
+    title_zh:"伟大的领袖如何激励行动",
+    speaker:"Simon Sinek", year:2009, duration:"18分钟",
+    embed_url:"https://player.bilibili.com/player.html?bvid=BV1kt411U7bC&page=1&high_quality=1&danmaku=0",
+    cues:[
+      {en:"How do you explain when others are able to achieve things that seem to defy all of the assumptions?", zh:"当别人能够实现那些似乎违背所有假设的事情时，你怎么解释？"},
+      {en:"For example: Why is Apple so innovative? Year after year, they're more innovative than all their competition. And yet, they're just a computer company.", zh:"例如：为什么苹果如此创新？年复一年，他们比所有竞争对手都更具创新性。然而，他们只是一家计算机公司。"},
+      {en:"As it turns out, there's a pattern. It's probably the world's simplest idea. I call it the golden circle.", zh:"事实证明，有一个规律。这可能是世界上最简单的想法。我称之为黄金圈。"},
+      {en:"Every organization knows what they do. Some know how they do it. But very, very few people know why they do what they do.", zh:"每一个组织都知道他们做什么。有些知道他们怎么做。但非常非常少的人知道他们为什么这样做。"},
+      {en:"And by 'why' I don't mean 'to make a profit.' That's a result. By 'why,' I mean: What's your purpose? What's your cause? What's your belief?", zh:"我说的'为什么'不是'为了盈利'。那是结果。我说的'为什么'是：你的目的是什么？你的信念是什么？"},
+      {en:"But the inspired leaders, regardless of their size, regardless of their industry, all think, act and communicate from the inside out.", zh:"但是受到启发的领袖，无论其规模大小，无论其行业如何，都从内向外思考、行动和沟通。"},
+      {en:"People don't buy what you do; they buy why you do it. And what you do simply proves what you believe.", zh:"人们不购买你做什么，他们购买你为什么这样做。而你所做的只是证明了你的信念。"},
+      {en:"Martin Luther King gave the 'I Have a Dream' speech, not the 'I Have a Plan' speech. He gave people a vision of the future they wanted to be a part of.", zh:"马丁·路德·金发表了'我有一个梦想'的演讲，而不是'我有一个计划'的演讲。"},
+      {en:"And by the way, he invited everybody who believed what he believed. Whether they're individuals or organizations, we follow those who lead not because we have to, but because we want to.", zh:"顺便说一句，他邀请了所有相信他所相信的人。无论是个人还是组织，我们跟随那些引领我们的人，不是因为必须，而是因为想要。"},
+    ],
+    chunks:[
+      {type:"op",chunk:"As it turns out",zh:"事实证明……",score:"Band 7+",alts:["It turns out that","As we discovered"]},
+      {type:"op",chunk:"I call it",zh:"我称之为……",score:"Band 6+",alts:["I refer to this as","This is what I call"]},
+      {type:"op",chunk:"And by",zh:"我所说的……是指……",score:"Band 7+",alts:["What I mean by this is","To clarify"]},
+      {type:"ex",chunk:"For example",zh:"例如",score:"Band 6+",alts:["For instance","To illustrate"]},
+      {type:"tr",chunk:"But the inspired leaders",zh:"但是受到启发的领袖……",score:"Band 7+",alts:["However, the best leaders","In contrast, great leaders"]},
+      {type:"tr",chunk:"And by the way",zh:"顺便说一句",score:"Band 6+",alts:["Incidentally","On a related note"]},
+      {type:"tr",chunk:"The goal is not to",zh:"目标不是……",score:"Band 7+",alts:["It's not about","The aim isn't to"]},
+      {type:"em",chunk:"very, very few",zh:"非常非常少的",score:"Band 6+",alts:["hardly any","only a tiny fraction"]},
+      {type:"co",chunk:"not because we have to, but because we want to",zh:"不是因为必须，而是因为想要",score:"Band 8+",alts:["out of choice, not obligation","willingly, not reluctantly"]},
+      {type:"op",chunk:"People don't buy what you do",zh:"人们不购买你做什么",score:"Band 7+",alts:["It's not about what you do","What matters isn't what you do"]},
+    ]
+  }
+];
+
+var params = new URLSearchParams(location.search);
+var TALK = null;
+for (var i = 0; i < TALKS.length; i++) {
+  if (TALKS[i].id === params.get('id')) { TALK = TALKS[i]; break; }
+}
+
+if (!TALK) {
+  document.getElementById('txBody').innerHTML = '<p style="color:red;padding:20px">演讲未找到，请返回首页</p>';
+} else {
+  document.title = TALK.title_zh + ' · TED英语词块';
+  document.getElementById('navTitle').textContent = TALK.title_zh;
+  document.getElementById('tTitle').textContent = TALK.title;
+  document.getElementById('tSub').textContent = TALK.speaker + ' · ' + TALK.year + ' · ' + TALK.duration;
+  document.getElementById('videoFrame').src = TALK.embed_url;
+
+  var typeLabel = {op:'观点',ex:'举例',tr:'转折',em:'强调',co:'日常'};
+
+  function highlight(text) {
+    var out = text;
+    for (var j = 0; j < TALK.chunks.length; j++) {
+      var c = TALK.chunks[j];
+      var re = new RegExp(c.chunk.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
+      out = out.replace(re, '<span class="ch ch-' + c.type + '">' + c.chunk + '</span>');
+    }
+    return out;
+  }
+
+  var txHtml = '';
+  for (var k = 0; k < TALK.cues.length; k++) {
+    txHtml += '<div class="cue"><div class="cue-en">' + highlight(TALK.cues[k].en) + '</div><div class="cue-zh">' + TALK.cues[k].zh + '</div></div>';
+  }
+  document.getElementById('txBody').innerHTML = txHtml;
+
+  var chunksHtml = '';
+  for (var m = 0; m < TALK.chunks.length; m++) {
+    var ch = TALK.chunks[m];
+    chunksHtml += '<div class="chunk-item ' + ch.type + '">';
+    chunksHtml += '<div class="chunk-en">"' + ch.chunk + '"</div>';
+    chunksHtml += '<div class="chunk-zh">' + ch.zh + '</div>';
+    chunksHtml += '<div class="chunk-alts">替换表达：' + ch.alts.join(' / ') + '</div>';
+    chunksHtml += '<span class="chunk-score">' + typeLabel[ch.type] + ' · ' + ch.score + '</span>';
+    chunksHtml += '</div>';
+  }
+  document.getElementById('chunksBody').innerHTML = chunksHtml;
+}
+</script>
+</body>
+</html>
