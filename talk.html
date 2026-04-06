@@ -104,7 +104,7 @@ nav span { color:#fff; font-size:14px; font-weight:bold; margin-left:8px; }
 </div>
 
 <script>
-// 所有演讲数据（带时间戳）
+// 所有演讲数据（只保留2篇）
 var TALKS = [
   {
     id:"matt-cutts-30days",
@@ -156,23 +156,24 @@ var TALKS = [
     duration:"3分钟",
     embed_url:"https://player.bilibili.com/player.html?aid=497794921&page=1&high_quality=1&danmaku=0",
     cues:[
-      {time:"00:00", en:"Everyone, please think of your biggest personal goal. For real -- you can take a second. You've got to feel this to learn it.", zh:"请大家想想你最大的个人目标。认真的——你可以想一秒钟。你必须感受到它才能学到东西。"},
-      {time:"00:00", en:"Take a few seconds and think of your personal biggest goal, okay? Imagine deciding right now that you're going to do it.", zh:"花几秒钟想想你最大的个人目标，好吗？想象一下，现在就决定你要去做它。"},
-      {time:"00:00", en:"Imagine telling someone that you meet today what you're going to do. Imagine their congratulations, and their high image of you. Doesn't it feel good to say it out loud?", zh:"想象一下，告诉你今天遇到的某个人你要做什么。想象他们的祝贺，以及他们对你的高度评价。大声说出来感觉很好，不是吗？"},
-      {time:"00:00", en:"Don't you feel one step closer already, like it's already becoming part of your identity? Well, bad news: you should have kept your mouth shut.", zh:"你是不是已经感觉近了一步，好像它已经成为你身份的一部分？嗯，坏消息：你应该闭嘴的。"},
-      {time:"00:00", en:"Because that good feeling now will make you less likely to do it. The repeated psychology tests have proven that telling someone your goal makes it less likely to happen.", zh:"因为现在这种好感觉会让你更不可能去实现它。反复的心理测试已经证明，告诉别人你的目标会让它更不可能发生。"},
-      {time:"00:00", en:"Any time you have a goal, there are some steps that need to be done, some work that needs to be done in order to achieve it. Ideally you would not be satisfied until you'd actually done the work.", zh:"任何时候你有一个目标，都需要完成一些步骤，需要做一些工作才能实现它。理想情况下，在你真正完成工作之前，你不应该感到满足。"},
-      {time:"00:00", en:"But when you tell someone your goal and they acknowledge it, psychologists have found that it's called a 'social reality.' The mind is kind of tricked into feeling that it's already done.", zh:"但是当你告诉别人你的目标而他们承认它时，心理学家发现这被称为'社会现实'。大脑会被欺骗，感觉它已经完成了。"},
-      {time:"00:00", en:"And then because you've felt that satisfaction, you're less motivated to do the actual hard work necessary.", zh:"然后因为你感受到了那种满足感，你就不太有动力去做实际需要的艰难工作了。"},
-      {time:"00:00", en:"So this goes against conventional wisdom that we should tell our friends our goals, right? So they hold us to it.", zh:"所以这违背了常规智慧——我们应该告诉朋友我们的目标，对吧？这样他们可以督促我们。"},
-      {time:"00:00", en:"So, let's look at the proof. 1926: Kurt Lewin, founder of social psychology, called this 'substitution.' 1933: Wera Mahler found when it was acknowledged by others, it felt real in the mind.", zh:"那么，让我们看看证据。1926年：社会心理学创始人库尔特·勒温称之为'替代'。1933年：韦拉·马勒发现，当目标被他人认可时，在大脑中会感觉已经实现了。"},
-      {time:"00:00", en:"163 people across four separate tests. Everyone wrote down their personal goal. Then half of them announced their commitment to this goal to the room, and half didn't.", zh:"四项独立测试，163人参与。每个人都写下了自己的个人目标。然后一半人向房间里的人宣布了他们对这个目标的承诺，另一半没有。"},
-      {time:"00:00", en:"Then everyone was given 45 minutes of work that would directly lead them towards their goal, but they were told that they could stop at any time.", zh:"然后每个人都被给予45分钟的工作，这些工作会直接帮助他们实现目标，但被告知他们可以随时停止。"},
-      {time:"00:00", en:"Now, those who kept their mouths shut worked the entire 45 minutes on average, and when asked afterward, said that they felt that they had a long way to go still to achieve their goal.", zh:"那些保持沉默的人平均工作了整整45分钟，事后被问及时，说他们感觉距离实现目标还有很长的路要走。"},
-      {time:"00:00", en:"But those who had announced it quit after only 33 minutes, on average, and when asked afterward, said that they felt much closer to achieving their goal.", zh:"但那些宣布了目标的人平均只工作了33分钟就放弃了，事后被问及时，说他们感觉距离实现目标近多了。"},
-      {time:"00:00", en:"So if this is true, what can we do? Well, you could resist the temptation to announce your goal. You can delay the gratification that the social acknowledgment brings.", zh:"那么如果这是真的，我们能做什么？嗯，你可以抵制宣布目标的诱惑。你可以延迟社会认可带来的满足感。"},
-      {time:"00:00", en:"And you can understand that your mind mistakes the talking for the doing. But if you do need to talk about something, you can state it in a way that gives you no satisfaction.", zh:"你可以理解，你的大脑会把谈论误认为是在做事。但如果你确实需要谈论某事，你可以用一种让你没有满足感的方式表达它。"},
-      {time:"00:00", en:"Such as, 'I really want to run this marathon, so I need to train five times a week and kick my ass if I don't, okay?' So audience, next time you're tempted to tell someone your goal, what will you say?", zh:"比如，'我真的很想参加这场马拉松，所以我需要每周训练五次，如果没做到就自我惩罚，好吗？'所以，观众们，下次当你忍不住想告诉别人你的目标时，你会怎么说？"}
+      {time:"00:04", en:"Everyone, please think of your biggest personal goal. For real -- you can take a second. You've got to feel this to learn it.", zh:"请大家想想你最大的个人目标。认真的——你可以想一秒钟。你必须感受到它才能学到东西。"},
+      {time:"00:04", en:"Take a few seconds and think of your personal biggest goal, okay? Imagine deciding right now that you're going to do it.", zh:"花几秒钟想想你最大的个人目标，好吗？想象一下，现在就决定你要去做它。"},
+      {time:"00:04", en:"Imagine telling someone that you meet today what you're going to do. Imagine their congratulations, and their high image of you. Doesn't it feel good to say it out loud?", zh:"想象一下，告诉你今天遇到的某个人你要做什么。想象他们的祝贺，以及他们对你的高度评价。大声说出来感觉很好，不是吗？"},
+      {time:"00:04", en:"Don't you feel one step closer already, like it's already becoming part of your identity?", zh:"你是不是已经感觉近了一步，好像它已经成为你身份的一部分？"},
+      {time:"00:32", en:"Well, bad news: you should have kept your mouth shut, because that good feeling now will make you less likely to do it.", zh:"嗯，坏消息：你应该闭嘴的，因为现在这种好感觉会让你更不可能去实现它。"},
+      {time:"00:32", en:"The repeated psychology tests have proven that telling someone your goal makes it less likely to happen.", zh:"反复的心理测试已经证明，告诉别人你的目标会让它更不可能发生。"},
+      {time:"00:32", en:"Any time you have a goal, there are some steps that need to be done, some work that needs to be done in order to achieve it. Ideally you would not be satisfied until you'd actually done the work.", zh:"任何时候你有一个目标，都需要完成一些步骤，需要做一些工作才能实现它。理想情况下，在你真正完成工作之前，你不应该感到满足。"},
+      {time:"00:32", en:"But when you tell someone your goal and they acknowledge it, psychologists have found that it's called a 'social reality.' The mind is kind of tricked into feeling that it's already done.", zh:"但是当你告诉别人你的目标而他们承认它时，心理学家发现这被称为'社会现实'。大脑会被欺骗，感觉它已经完成了。"},
+      {time:"00:32", en:"And then because you've felt that satisfaction, you're less motivated to do the actual hard work necessary.", zh:"然后因为你感受到了那种满足感，你就不太有动力去做实际需要的艰难工作了。"},
+      {time:"01:12", en:"So this goes against conventional wisdom that we should tell our friends our goals, right? So they hold us to it.", zh:"所以这违背了常规智慧——我们应该告诉朋友我们的目标，对吧？这样他们可以督促我们。"},
+      {time:"01:19", en:"So, let's look at the proof. 1926: Kurt Lewin, founder of social psychology, called this 'substitution.' 1933: Wera Mahler found when it was acknowledged by others, it felt real in the mind. 1982, Peter Gollwitzer wrote a whole book about this, and in 2009, he did some new tests that were published.", zh:"那么，让我们看看证据。1926年：社会心理学创始人库尔特·勒温称之为'替代'。1933年：韦拉·马勒发现，当目标被他人认可时，在大脑中会感觉已经实现了。1982年，彼得·戈尔维策写了一整本书讲这个，2009年，他做了一些新的实验并发表了。"},
+      {time:"01:37", en:"It goes like this: 163 people across four separate tests. Everyone wrote down their personal goal. Then half of them announced their commitment to this goal to the room, and half didn't.", zh:"是这样的：四项独立测试，163人参与。每个人都写下了自己的个人目标。然后一半人向房间里的人宣布了他们对这个目标的承诺，另一半没有。"},
+      {time:"01:37", en:"Then everyone was given 45 minutes of work that would directly lead them towards their goal, but they were told that they could stop at any time.", zh:"然后每个人都被给予45分钟的工作，这些工作会直接帮助他们实现目标，但被告知他们可以随时停止。"},
+      {time:"01:37", en:"Now, those who kept their mouths shut worked the entire 45 minutes on average, and when asked afterward, said that they felt that they had a long way to go still to achieve their goal.", zh:"那些保持沉默的人平均工作了整整45分钟，事后被问及时，说他们感觉距离实现目标还有很长的路要走。"},
+      {time:"01:37", en:"But those who had announced it quit after only 33 minutes, on average, and when asked afterward, said that they felt much closer to achieving their goal.", zh:"但那些宣布了目标的人平均只工作了33分钟就放弃了，事后被问及时，说他们感觉距离实现目标近多了。"},
+      {time:"02:16", en:"So if this is true, what can we do? Well, you could resist the temptation to announce your goal. You can delay the gratification that the social acknowledgment brings, and you can understand that your mind mistakes the talking for the doing.", zh:"那么如果这是真的，我们能做什么？嗯，你可以抵制宣布目标的诱惑。你可以延迟社会认可带来的满足感，你可以理解，你的大脑会把谈论误认为是在做事。"},
+      {time:"02:16", en:"But if you do need to talk about something, you can state it in a way that gives you no satisfaction, such as, 'I really want to run this marathon, so I need to train five times a week and kick my ass if I don't, okay?'", zh:"但如果你确实需要谈论某事，你可以用一种让你没有满足感的方式表达它，比如，'我真的很想参加这场马拉松，所以我需要每周训练五次，如果没做到就自我惩罚，好吗？'"},
+      {time:"02:46", en:"So audience, next time you're tempted to tell someone your goal, what will you say?", zh:"所以，观众们，下次当你忍不住想告诉别人你的目标时，你会怎么说？"}
     ],
     chunks:[
       {type:"op",chunk:"The repeated psychology tests have proven that",zh:"反复的心理测试已经证明……",score:"Band 8+",alts:["Research has consistently shown that","Studies have repeatedly demonstrated that","Evidence conclusively proves that"]},
@@ -184,46 +185,6 @@ var TALKS = [
       {type:"em",chunk:"the mind is kind of tricked into",zh:"大脑会被欺骗以为……",score:"Band 7+",alts:["the brain is fooled into thinking","we unconsciously convince ourselves","our mind mistakenly believes"]},
       {type:"co",chunk:"For real",zh:"认真的；真的",score:"Band 6+",alts:["seriously","honestly","I mean it"]},
       {type:"co",chunk:"right?",zh:"对吧？（互动反问）",score:"Band 6+",alts:["wouldn't you agree?","don't you think?","isn't that so?"]}
-    ]
-  },
-  {
-    id:"joseph-pine-authenticity",
-    title:"What Consumers Want",
-    title_zh:"消费者真正想要什么",
-    speaker:"Joseph Pine", 
-    year:2004, 
-    duration:"14分钟",
-    embed_url:"https://player.bilibili.com/player.html?bvid=BV1et4y1z7Yn&page=1&high_quality=1&danmaku=0",
-    cues:[
-      {time:"00:00", en:"I'm going to talk about a very fundamental change that is going on in the very fabric of the modern economy.", zh:"我将谈论一个正在现代经济基本结构中发生的非常根本性的变化。"},
-      {time:"00:00", en:"In the beginning were commodities. Commodities are things that you grow in the ground, raise on the ground or pull out of the ground: basically, animal, mineral, vegetable.", zh:"起初是商品。商品是你在地里种植、在地面上饲养或从地下开采出来的东西：基本上就是动物、矿物、蔬菜。"},
-      {time:"00:00", en:"Commodities were the basis of the agrarian economy that lasted for millennia. But then along came the industrial revolution, and then goods became the predominant economic offering.", zh:"商品是延续了数千年的农业经济的基础。但后来工业革命来临，商品成为了主要的经济产品。"},
-      {time:"00:00", en:"So, we moved from an agrarian economy to an industrial economy. And what happened over the last 50 or 60 years is that goods have become commoditized — where people don't care who makes them, they just care about price, price and price.", zh:"于是，我们从农业经济转向了工业经济。而在过去五六十年里发生的事情是，商品变得大众化了——人们不在乎谁生产它们，他们只关心价格、价格，还是价格。"},
-      {time:"00:00", en:"Now, there's an antidote to commoditization, and that is customization. Customizing a good automatically turned it into a service, because it was done just for a particular person.", zh:"现在，商品化的解药就是定制化。定制一件商品会自动将其变成一种服务，因为它是专门为特定的人做的。"},
-      {time:"00:00", en:"So, we moved from an industrial economy to a service-based economy. But over the past 10 or 20 years, what's happened is that services are being commoditized as well.", zh:"于是，我们从工业经济转向了以服务为基础的经济。但在过去十到二十年里，服务也开始商品化了。"},
-      {time:"00:00", en:"What that means is that it's time to move to a new level of economic value — to go beyond the goods and the services. What happens when you customize a service? You can't help but turn it into a memorable event — you can't help but turn it into an experience.", zh:"这意味着是时候转向新的经济价值层次了——超越商品和服务。当你定制一项服务时会发生什么？你忍不住把它变成一个难忘的事件——你忍不住把它变成一种体验。"},
-      {time:"00:00", en:"So we're shifting to an experience economy, where experiences are becoming the predominant economic offering.", zh:"所以我们正在转向体验经济，在这种经济中，体验正在成为主要的经济产品。"},
-      {time:"00:00", en:"There is no such thing as an inauthentic experience. Why? Because the experience happens inside of us. It's our reaction to the events that are staged in front of us.", zh:"不存在不真实的体验。为什么？因为体验发生在我们内心。它是我们对在我们面前上演的事件的反应。"},
-      {time:"00:00", en:"As long as we are in any sense authentic human beings, then every experience we have is authentic. There may be more or less natural or artificial stimuli, but even that is a matter of degree, not kind.", zh:"只要我们在某种意义上是真实的人，那么我们拥有的每一种体验都是真实的。刺激可能更自然或更人工，但即使这样也只是程度问题，而不是种类问题。"},
-      {time:"00:00", en:"But nonetheless, everyone has this desire for the authentic. And authenticity is therefore becoming the new consumer sensibility — the buying criteria by which consumers are choosing who they're going to buy from.", zh:"但尽管如此，每个人都有对真实性的渴望。因此，真实性正在成为新的消费者感受——消费者用来选择从谁那里购买的购买标准。"},
-      {time:"00:00", en:"There are two dimensions to authenticity: one, being true to yourself; two, is other-directed: being what you say you are to others.", zh:"真实性有两个维度：一是忠于自我；二是面向他人：言行一致，表里如一。"},
-      {time:"00:00", en:"If you are both true to yourself and are what you say you are, then you're real real!", zh:"如果你既忠于自我，又言行一致，那么你就是真正的真实！"},
-      {time:"00:00", en:"Think about coffee. Coffee beans at their core are worth two or three cents per cup. But grind it, roast it, package it — five to fifteen cents. Brew it for a customer in a diner — fifty cents to a dollar.", zh:"想想咖啡。咖啡豆的核心价值是每杯两三美分。但是磨碎它、烘焙它、包装它——五到十五美分。在餐厅为顾客冲泡它——五十美分到一美元。"},
-      {time:"00:00", en:"But surround the brewing of that coffee with the ambiance of a Starbucks, with the authentic experience, and now you can charge two, three, four, five dollars for a cup of coffee.", zh:"但是用星巴克的氛围、真实的体验来包围那杯咖啡的冲泡过程，现在你可以为一杯咖啡收取两、三、四、五美元。"},
-      {time:"00:00", en:"So, authenticity is becoming the new consumer sensibility. Three basic rules: One, don't say you're authentic unless you really are. Two, it's easier to be authentic if you don't say you're authentic.", zh:"所以，真实性正在成为新的消费者感受。三条基本规则：第一，除非你真的是，否则不要说你是真实的。第二，如果你不说你是真实的，反而更容易真实。"},
-      {time:"00:00", en:"And three, if you say you're authentic, you better be authentic. Increasingly, what will make us happy is spending our time and money satisfying the desire for authenticity. Thank you.", zh:"第三，如果你说你是真实的，你最好真的是真实的。越来越多地，让我们快乐的是把时间和金钱花在满足对真实性的渴望上。谢谢。"}
-    ],
-    chunks:[
-      {type:"op",chunk:"I'm going to talk about",zh:"我将谈论……",score:"Band 6+",alts:["I'd like to discuss","My focus today is on","What I want to explore is"]},
-      {type:"op",chunk:"There is no such thing as",zh:"根本不存在……",score:"Band 8+",alts:["It's simply not possible to have","We cannot speak of","The concept of X doesn't really exist"]},
-      {type:"op",chunk:"it's a matter of degree, not kind",zh:"这只是程度问题，而不是种类问题",score:"Band 8+",alts:["it differs in degree rather than in nature","it's quantitative not qualitative","the difference is one of scale not type"]},
-      {type:"ex",chunk:"Think about coffee",zh:"以咖啡为例",score:"Band 6+",alts:["Consider the example of coffee","Take coffee as an illustration","Coffee is a perfect example of this"]},
-      {type:"ex",chunk:"what happened over the last 50 or 60 years",zh:"在过去五六十年里发生的事情",score:"Band 7+",alts:["over the past few decades","in recent decades","throughout the last half century"]},
-      {type:"tr",chunk:"But then along came",zh:"但后来……来临了",score:"Band 7+",alts:["Then came","This was followed by","The next development was"]},
-      {type:"tr",chunk:"What that means is that",zh:"这意味着……",score:"Band 7+",alts:["The implication is that","This suggests that","As a result of this"]},
-      {type:"tr",chunk:"So we're shifting to",zh:"所以我们正在转向……",score:"Band 7+",alts:["We are moving towards","The trend is moving to","There's a clear shift towards"]},
-      {type:"em",chunk:"you can't help but",zh:"你忍不住……",score:"Band 7+",alts:["you inevitably","you naturally end up","it's impossible not to"]},
-      {type:"co",chunk:"right?",zh:"对吧？",score:"Band 6+",alts:["wouldn't you agree?","don't you think?","isn't that the case?"]}
     ]
   }
 ];
@@ -245,14 +206,6 @@ var VOCAB = {
     {word:"motivated",zh:"有动力的；积极的",freq:"Academic 高频",collocations:"highly motivated / stay motivated / motivated to achieve"},
     {word:"commitment",zh:"承诺；投入",freq:"Academic 高频",collocations:"commitment to a goal / strong commitment / show commitment"},
     {word:"gratification",zh:"满足；快感",freq:"Academic 中频",collocations:"delay gratification / instant gratification / social gratification"}
-  ],
-  "joseph-pine-authenticity": [
-    {word:"authenticity",zh:"真实性；真正",freq:"Academic 高频",collocations:"sense of authenticity / render authenticity / desire for authenticity"},
-    {word:"economy",zh:"经济；经济体",freq:"Academic 极高频",collocations:"experience economy / global economy / emerging economy"},
-    {word:"commodity",zh:"商品；大宗货物",freq:"Academic 高频",collocations:"basic commodity / commodity price / raw commodity"},
-    {word:"customization",zh:"定制；个性化",freq:"Academic 中频",collocations:"mass customization / product customization / customization options"},
-    {word:"experience",zh:"体验；经历",freq:"Academic 极高频",collocations:"authentic experience / memorable experience / consumer experience"},
-    {word:"perception",zh:"感知；看法",freq:"Academic 高频",collocations:"consumer perception / expand perception / change perception"}
   ]
 };
 
